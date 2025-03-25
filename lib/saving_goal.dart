@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './helpers/database_helper.dart';
+import 'database_helper.dart';
 
 class SavingGoal extends StatelessWidget {
   const SavingGoal({super.key});
@@ -31,14 +31,8 @@ class _GoalHomePageState extends State<GoalHomePage> {
   Future<void> _loadGoalFromDatabase() async {
     try {
       double? savedGoal = await DatabaseHelper.instance.getGoal();
-      if (savedGoal != null) {
-        goalModel.updateGoal(savedGoal);
-        setState(() {});
-      } else {
-        // No saved goal found, set an initial default goal
-        goalModel.initialize(0.0); // Set your initial default goal here
-        setState(() {}); // Update UI to reflect the initial goal
-      }
+      goalModel.updateGoal(savedGoal);
+      setState(() {});
     } catch (e) {
       print('Error loading goal: $e');
       // Handle error as needed
@@ -54,13 +48,8 @@ class _GoalHomePageState extends State<GoalHomePage> {
     double? savedGoal = await DatabaseHelper.instance.getGoal();
 
     try {
-      if (savedGoal != null) {
-        // Goal exists, update it
-        await DatabaseHelper.instance.updateGoal(newGoal);
-      } else {
-        // Goal doesn't exist, insert new goal
-        await DatabaseHelper.instance.insertGoal(newGoal);
-      }
+      // Goal exists, update it
+      await DatabaseHelper.instance.updateGoal(newGoal);
 
       setState(() {}); // Update UI after saving or updating goal
 

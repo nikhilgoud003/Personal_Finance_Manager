@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'database_helper.dart';
+import 'investment_tracker.dart';
+import 'saving_goal.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});

@@ -1,9 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:PersonalFinanceManager/models/investment.dart';
-import './widgets/new_investment_form.dart';
-import './widgets/investment_list.dart';
-import './helpers/database_helper.dart';
+import 'database_helper.dart';
 
 class InvestmentTracker extends StatelessWidget {
   const InvestmentTracker({super.key});
