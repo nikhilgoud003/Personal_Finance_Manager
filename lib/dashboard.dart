@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'database_helper.dart';
+import 'expense_tracker.dart';
 import 'investment_tracker.dart';
+import 'income.dart';
 import 'saving_goal.dart';
+import 'database_helper.dart';
+import 'report.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const HomePage();
+    return HomePage();
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -59,7 +58,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadExpenses() async {
     try {
       double expenseAmount =
-          await DatabaseHelper.instance.calculateTotalExpenseAmount();
+          await DatabaseHelper.instance.calculateTotalExpenseAmount() as double;
       setState(() {
         totalExpense = expenseAmount;
       });
@@ -70,8 +69,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadInvestments() async {
     try {
-      double investmentAmount =
-          await DatabaseHelper.instance.calculateTotalInvestmentAmount();
+      double investmentAmount = await DatabaseHelper.instance
+          .calculateTotalInvestmentAmount() as double;
       setState(() {
         totalInvestment = investmentAmount;
       });
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
   void _navigateToExpenseTracker(BuildContext context) async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ExpenseTracker()),
+      MaterialPageRoute(builder: (context) => ExpenseTracker()),
     );
     await _loadExpenses();
     print('Total expenses are $totalExpense');
@@ -92,7 +91,7 @@ class _HomePageState extends State<HomePage> {
   void _navigateToInvestmentTracker(BuildContext context) async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const InvestmentTracker()),
+      MaterialPageRoute(builder: (context) => InvestmentTracker()),
     );
     await _loadInvestments();
     print('Total investments are $totalInvestment');
@@ -101,7 +100,7 @@ class _HomePageState extends State<HomePage> {
   void _navigateToIncomeTracker(BuildContext context) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Income()),
+      MaterialPageRoute(builder: (context) => Income()),
     );
     await _loadIncome();
     print('Current income is $currentIncome');
@@ -110,7 +109,7 @@ class _HomePageState extends State<HomePage> {
   void _navigateToSavingGoal(BuildContext context) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SavingGoal()),
+      MaterialPageRoute(builder: (context) => SavingGoal()),
     );
     await _loadGoal();
     print('Current goal is $currentGoal');
@@ -205,7 +204,7 @@ class _HomePageState extends State<HomePage> {
         icon: Icon(icon, size: 26, color: Colors.white),
         label: Text(
           label,
-          style: const TextStyle(fontSize: 18, color: Colors.white),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
         onPressed: onPressed,
       ),

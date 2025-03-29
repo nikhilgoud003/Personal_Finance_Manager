@@ -1,19 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'investment.dart';
+import 'new_investment_form.dart';
+import 'investment_list.dart';
 import 'database_helper.dart';
 
 class InvestmentTracker extends StatelessWidget {
-  const InvestmentTracker({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MyHomePage();
+    return MyHomePage();
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -23,8 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _showChart = false;
 
   List<Investment> get _recentInvestments {
-    DateTime lastDayOfPrevWeek =
-        DateTime.now().subtract(const Duration(days: 6));
+    DateTime lastDayOfPrevWeek = DateTime.now().subtract(Duration(days: 6));
     lastDayOfPrevWeek = DateTime(
         lastDayOfPrevWeek.year, lastDayOfPrevWeek.month, lastDayOfPrevWeek.day);
     return _userInvestments.where((element) {
@@ -77,11 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext bc) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.80,
-          decoration: const BoxDecoration(
+          decoration: new BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0),
-              topRight: Radius.circular(25.0),
+            borderRadius: new BorderRadius.only(
+              topLeft: const Radius.circular(25.0),
+              topRight: const Radius.circular(25.0),
             ),
           ),
           child: NewInvestmentForm(_addNewInvestment),
@@ -102,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final AppBar myAppBar = AppBar(
-      title: const Text(
+      title: Text(
         'Personal Investments',
         style: TextStyle(
           fontFamily: "Quicksand",
@@ -112,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.add),
+          icon: Icon(Icons.add),
           onPressed: () => _startAddNewInvestment(context),
           tooltip: "Add New Investment",
         ),
@@ -181,9 +179,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Platform.isIOS
           ? Container()
           : FloatingActionButton(
+              child: Icon(Icons.add),
               tooltip: "Add New Investment",
               onPressed: () => _startAddNewInvestment(context),
-              child: const Icon(Icons.add),
             ),
     );
   }
@@ -206,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget myInvestmentListContainer(
       {required double height, required double width}) {
-    return SizedBox(
+    return Container(
       height: height,
       width: width,
       child: InvestmentList(_userInvestments, _deleteInvestment),

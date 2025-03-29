@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'database_helper.dart';
 
 class SavingGoal extends StatelessWidget {
-  const SavingGoal({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const GoalHomePage();
+    return GoalHomePage();
   }
 }
 
 class GoalHomePage extends StatefulWidget {
-  const GoalHomePage({super.key});
-
   @override
   _GoalHomePageState createState() => _GoalHomePageState();
 }
@@ -20,7 +16,7 @@ class GoalHomePage extends StatefulWidget {
 class _GoalHomePageState extends State<GoalHomePage> {
   final GoalModel goalModel = GoalModel(); // Initialize GoalModel
 
-  final TextEditingController _goalController = TextEditingController();
+  TextEditingController _goalController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -31,8 +27,14 @@ class _GoalHomePageState extends State<GoalHomePage> {
   Future<void> _loadGoalFromDatabase() async {
     try {
       double? savedGoal = await DatabaseHelper.instance.getGoal();
-      goalModel.updateGoal(savedGoal);
-      setState(() {});
+      if (savedGoal != null) {
+        goalModel.updateGoal(savedGoal);
+        setState(() {});
+      } else {
+        // No saved goal found, set an initial default goal
+        goalModel.initialize(0.0); // Set your initial default goal here
+        setState(() {}); // Update UI to reflect the initial goal
+      }
     } catch (e) {
       print('Error loading goal: $e');
       // Handle error as needed
@@ -48,8 +50,13 @@ class _GoalHomePageState extends State<GoalHomePage> {
     double? savedGoal = await DatabaseHelper.instance.getGoal();
 
     try {
-      // Goal exists, update it
-      await DatabaseHelper.instance.updateGoal(newGoal);
+      if (savedGoal != null) {
+        // Goal exists, update it
+        await DatabaseHelper.instance.updateGoal(newGoal);
+      } else {
+        // Goal doesn't exist, insert new goal
+        await DatabaseHelper.instance.insertGoal(newGoal);
+      }
 
       setState(() {}); // Update UI after saving or updating goal
 
@@ -66,7 +73,7 @@ class _GoalHomePageState extends State<GoalHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Set Savings Goal'),
+        title: Text('Set Savings Goal'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,22 +82,21 @@ class _GoalHomePageState extends State<GoalHomePage> {
           children: <Widget>[
             Text(
               'Current Goal: \$${goalModel._goal.toStringAsFixed(2)}',
-              style: const TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 18.0),
             ),
-            const SizedBox(height: 20.0),
+            SizedBox(height: 20.0),
             TextField(
               controller: _goalController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Enter New Goal',
                 border: OutlineInputBorder(),
               ),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
             ),
-            const SizedBox(height: 20.0),
+            SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () => _saveGoal(context),
-              child: const Text('Save Goal'),
+              child: Text('Save Goal'),
             ),
           ],
         ),

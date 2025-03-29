@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-import './widgets/new_transaction_form.dart';
-import './widgets/transaction_list.dart';
-import './widgets/chart.dart';
-import './widgets/circular_chart.dart';
-import './models/transaction.dart';
-import './helpers/database_helper.dart';
+import 'new_transaction_form.dart';
+import 'transaction_list.dart';
+import 'chart.dart';
+import 'circular_chart.dart';
+import 'transaction.dart';
+import 'database_helper.dart';
 
 class ExpenseTracker extends StatelessWidget {
   @override

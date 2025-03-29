@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/investment.dart';
+import 'investment.dart';
 
 class InvestmentList extends StatelessWidget {
   final List<Investment> _allInvestments;
