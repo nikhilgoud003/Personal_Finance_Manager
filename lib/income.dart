@@ -4,6 +4,8 @@ import 'database_helper.dart';
 import 'income_model.dart';
 
 class Income extends StatelessWidget {
+  const Income({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MyHomePage();
@@ -11,6 +13,8 @@ class Income extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -18,7 +22,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final IncomeModel incomeModel = IncomeModel(); // Initialize IncomeModel
 
-  TextEditingController _incomeController = TextEditingController();
+  final TextEditingController _incomeController = TextEditingController();
 
   @override
   void initState() {

@@ -1,8 +1,8 @@
 class Investment {
-  String _id;
-  String _title;
-  double _amount;
-  DateTime _date;
+  final String _id;
+  final String _title;
+  final double _amount;
+  final DateTime _date;
 
   String get invId => _id;
   String get invTitle => _title;
