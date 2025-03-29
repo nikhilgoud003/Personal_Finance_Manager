@@ -1,9 +1,9 @@
 class Transaction {
-  String _id;
-  String _title;
-  double _amount;
-  String _category;
-  DateTime _date;
+  final String _id;
+  final String _title;
+  final double _amount;
+  final String _category;
+  final DateTime _date;
 
   String get txnId => _id;
   String get txnTitle => _title;
