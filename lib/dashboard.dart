@@ -131,55 +131,66 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text(
-          'Personal Finance Manager',
-          style: TextStyle(color: Colors.blueGrey[800]),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/image.png'),
+            fit: BoxFit.cover,
+          ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.blueGrey[50],
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.blueGrey[800]),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildDashboardButton(
-                context,
-                icon: Icons.account_balance_wallet,
-                label: 'Expense Tracker',
-                onPressed: () => _navigateToExpenseTracker(context),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: Text(
+              'Personal Finance Manager',
+              style: TextStyle(color: Colors.blueGrey[800]),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.blueGrey[50],
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.blueGrey[800]),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildDashboardButton(
+                    context,
+                    icon: Icons.account_balance_wallet,
+                    label: 'Expense Tracker',
+                    onPressed: () => _navigateToExpenseTracker(context),
+                  ),
+                  _buildDashboardButton(
+                    context,
+                    icon: Icons.trending_up,
+                    label: 'Investment Tracker',
+                    onPressed: () => _navigateToInvestmentTracker(context),
+                  ),
+                  _buildDashboardButton(
+                    context,
+                    icon: Icons.attach_money,
+                    label: 'Income Entry',
+                    onPressed: () => _navigateToIncomeTracker(context),
+                  ),
+                  _buildDashboardButton(
+                    context,
+                    icon: Icons.flag,
+                    label: 'Budget Goal Setting',
+                    onPressed: () => _navigateToSavingGoal(context),
+                  ),
+                  _buildDashboardButton(
+                    context,
+                    icon: Icons.pie_chart,
+                    label: 'Reports',
+                    onPressed: _getReport,
+                  ),
+                ],
               ),
-              _buildDashboardButton(
-                context,
-                icon: Icons.trending_up,
-                label: 'Investment Tracker',
-                onPressed: () => _navigateToInvestmentTracker(context),
-              ),
-              _buildDashboardButton(
-                context,
-                icon: Icons.attach_money,
-                label: 'Income Entry',
-                onPressed: () => _navigateToIncomeTracker(context),
-              ),
-              _buildDashboardButton(
-                context,
-                icon: Icons.flag,
-                label: 'Budget Goal Setting',
-                onPressed: () => _navigateToSavingGoal(context),
-              ),
-              _buildDashboardButton(
-                context,
-                icon: Icons.pie_chart,
-                label: 'Reports',
-                onPressed: _getReport,
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -195,7 +206,7 @@ class _HomePageState extends State<HomePage> {
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          backgroundColor: Colors.blueGrey[600],
+          backgroundColor: Colors.blueGrey[600]!.withOpacity(0.9),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
